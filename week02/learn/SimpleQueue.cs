@@ -10,7 +10,9 @@
         queue.Enqueue(100);
         var value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found:
+        // Defect(s) Found: 
+        // 1. The Enqueue method was inserting at index 0 (the front) instead of the back.
+        // 2. The Dequeue method was trying to access index 1, which caused an IndexOutOfRangeException for a single item.
 
         Console.WriteLine("------------");
 
@@ -54,7 +56,7 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -66,8 +68,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
